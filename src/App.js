@@ -1,24 +1,27 @@
 import logo from './logo.svg';
+import "./index.css";
 import './App.css';
-
+import { addOffers, selectOffers } from "./features/offers/slice-offers";
+import { useDispatch, useSelector } from "react-redux";
+import { FilterPanel } from "./features/filtres/FilterPanel";
+import { JobList } from "./features/offers/JobList";
+import { Header } from "./Components/Header";
+import { useEffect } from "react";
+import data from "./data/data.json";
 function App() {
+  const dispatch = useDispatch();
+  const store = useSelector(selectOffers);
+  useEffect(() => {
+    dispatch(addOffers(data))
+  }, []);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <Header />
+      <div className="container">
+        <FilterPanel />
+        <JobList />
+      </div>
+    </>
   );
 }
 
